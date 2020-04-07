@@ -4,8 +4,7 @@ declare(strict_types=1);
 use App\Http\Middleware\MiddlewareA;
 use App\Http\Middleware\MiddlewareB;
 use App\Http\Middleware\MiddlewareC;
-use Branch\Interfaces\RouterInterface as Router;
-use Branch\Middleware\MiddlewareB as MiddlewareMiddlewareB;
+use Branch\Interfaces\Routing\RouterInterface as Router;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 

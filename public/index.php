@@ -6,9 +6,9 @@ use Branch\App;
 use App\Http\Middleware\MiddlewareA;
 use App\Http\Middleware\MiddlewareB;
 use App\Http\Middleware\MiddlewareC;
-use Branch\Interfaces\MiddlewarePipeInterface;
-use Branch\Interfaces\RequestFactoryInterface;
-use Branch\Interfaces\ResponseFactoryInterface;
+use Branch\Interfaces\Middleware\MiddlewarePipeInterface;
+use Branch\Interfaces\Http\RequestFactoryInterface;
+use Branch\Interfaces\Http\ResponseFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 define('BRANCH_FRAMEWORK_START', microtime(true));
