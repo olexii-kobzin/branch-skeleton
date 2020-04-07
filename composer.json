@@ -1,0 +1,35 @@
+{
+    "name": "tasmanangel/branch-skeleton",
+    "version": "0.0.1",
+    "type": "package",
+    "description": "Branch",
+    "keywords": ["Branch", "framework"],
+    "homepage": "http://testhomepage.com",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Alex Kobzin",
+            "email": "alex.kobzin@gmail.com",
+            "homepage": "http://testhomepage.com",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../packages/branch",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "require": {
+        "php": ">=7.4.3",
+        "tasmanangel/branch": "^0.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    }
+}
