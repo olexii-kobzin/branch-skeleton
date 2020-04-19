@@ -14,7 +14,7 @@ return function (Router $router) {
         echo 'Root path';
     });
 
-    $router->get(['path' => 'action/:id/test'], TestAction::class);
+    $router->post(['path' => 'action/:id/test'], TestAction::class);
 
     $router->group([
         'path' => 'info',
