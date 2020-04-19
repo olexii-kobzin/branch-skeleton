@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Http\Actions\TestAction;
 use App\Http\Middleware\MiddlewareA;
 use App\Http\Middleware\MiddlewareB;
 use App\Http\Middleware\MiddlewareC;
@@ -12,6 +13,8 @@ return function (Router $router) {
     $router->get(['path' => ''], function (Request $request, Response $response) {
         echo 'Root path';
     });
+
+    $router->get(['path' => 'action/:id/test'], TestAction::class);
 
     $router->group([
         'path' => 'info',
