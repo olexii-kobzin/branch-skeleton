@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Branch\Env;
 use Branch\App;
-use Branch\Error\Handler;
+use App\Error\Handler;
 
 define('BRANCH_FRAMEWORK_START', microtime(true));
 
