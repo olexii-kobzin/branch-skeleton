@@ -2,6 +2,7 @@
 namespace App\Error;
 
 use Branch\Interfaces\EnvInterface;
+use Branch\Helpers\ErrorHelper;
 use Throwable;
 
 class Handler
@@ -9,9 +10,8 @@ class Handler
     public function __invoke(Throwable $e)
     {
         $eol = PHP_EOL;
-        $codeInt = is_integer($e->getCode()) ? $e->getCode() : 500;
 
-        http_response_code($codeInt);
+        http_response_code(ErrorHelper::getHttpCode($e));
 
         if (ENV['APP_ENV'] === EnvInterface::ENV_DEV) {
             echo <<<RESPONSE
