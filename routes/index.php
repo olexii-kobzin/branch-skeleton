@@ -27,8 +27,9 @@ return function (Router $router) {
             $router->get([
                 'path' => 'author',
                 'middleware' => [
-                    MiddlewareA::class => [
-                        'parameters' => [
+                    [
+                        'class' => MiddlewareA::class,
+                        'args' => [
                             'param1' => 'hello',
                             'param2' => 'world',
                         ],
