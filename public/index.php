@@ -1,24 +1,20 @@
 <?php
 declare(strict_types=1);
 
-use Branch\Env;
-use Branch\App;
-use App\Error\Handler;
-
 define('BRANCH_FRAMEWORK_START', microtime(true));
+define('DS', DIRECTORY_SEPARATOR);
 
 require __DIR__.'/../vendor/autoload.php';
 
-$env = new Env();
-
+$env = new \Branch\Env();
 define('ENV', $env->get());
 // Fallback handler in case of middleware not able to catch an error
-set_exception_handler(new Handler());
+set_exception_handler(new \App\Error\Handler());
 
 $configFolder = realpath('../config');
 $routesFolder = realpath('../routes');
 
-$app = App::getInstance();
+$app = \Branch\App::getInstance();
 $app->init($configFolder, $routesFolder);
 
 // var_dump(get_included_files());

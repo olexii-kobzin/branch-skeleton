@@ -8,16 +8,17 @@ use App\Http\Middleware\MiddlewareC;
 use Branch\Interfaces\Routing\RouterInterface as Router;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Nyholm\Psr7\Stream;
 
 return function (Router $router) {
-    $router->get(['path' => ''], function (Request $request, Response $response) {
-        echo 'Root path';
+    $router->get(['path' => ''], function (Request $request, Response $response, array $args) {
+        return $response->withBody(Stream::create('Root path'));
     });
 
     $router->post(['path' => 'action/:id/test'], TestAction::class);
 
     $router->group([
-        'path' => 'info',
+        // 'path' => '',
         'middleware' => [
             MiddlewareC::class,
             MiddlewareB::class,
@@ -27,35 +28,32 @@ return function (Router $router) {
             $router->get([
                 'path' => 'author',
                 'middleware' => [
-                    [
-                        'class' => MiddlewareA::class,
-                        'args' => [
-                            'param1' => 'hello',
-                            'param2' => 'world',
-                        ],
-                    ], 
+                    MiddlewareA::class => [
+                        'param1' => 'hello',
+                        'param2' => 'world',
+                    ],
                 ],
-            ], function (Request $requst, Response $response) {
-                echo "My name is Olexii Kobzin\n";
+            ], function (Request $requst, Response $response, array $args) {
+                return $response->withBody(Stream::create("My name is Olexii Kobzin\n"));
             });
-            $router->get(['path' => 'framework'], function (Request $request, Response $response) {
-                echo "This is a Branch framework\n";
+            $router->get(['path' => 'framework'], function (Request $request, Response $response, array $args) {
+                return $response->withBody(Stream::create("This is a Branch framework\n"));
             });
         });
 
-        $router->get(['path' => 'contacts2/test'], function (Request $request, Response $response) {
-            echo "Email: tasmanangel@gmail.com\n";
+        $router->get(['path' => 'contacts2/test'], function (Request $request, Response $response, array $args) {
+            return $response->withBody(Stream::create("Email: tasmanangel@gmail.com\n"));
         });
     });
 
     $router->get([
         'path' => 'contacts/:id/name/:name',
+        'name' => 'contactsName',
         'middleware' => [
             MiddlewareC::class,
             MiddlewareB::class,
         ]
     ], function (Request $request, Response $response, array $args) {
-        var_dump($args);
-        echo "Email: tasmanangel@gmail.com\n";
+        return $response->withBody(Stream::create("Email: tasmanangel@gmail.com\n"));
     });
 };

@@ -14,12 +14,12 @@ class Handler
 
         if (ENV['APP_ENV'] === EnvInterface::ENV_DEV) {
             echo <<<RESPONSE
-{$e->getCode()} {$e->getMessage()} ({$e->getFile()}:{$e->getLine()}){$eol}
+{$e->getMessage()} ({$e->getFile()}:{$e->getLine()}){$eol}
 {$e->getTraceAsString()}
 RESPONSE;  
         } else {
             echo <<<RESPONSE
-{$e->getCode()} {$e->getMessage()}
+{$e->getMessage()}
 RESPONSE;  
         }
     }
