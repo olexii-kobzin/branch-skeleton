@@ -18,6 +18,8 @@ use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Branch\Interfaces\Routing\RouteConfigBuilderInterface;
+use Branch\Routing\RouteConfigBuilder;
 
 return [
     RequestFactoryInterface::class => [
@@ -41,6 +43,10 @@ return [
     },
     RouteInvokerInterface::class => [
         'class' => RouteInvoker::class,
+        'type' => App::DI_TYPE_SINGLETON,
+    ],
+    RouteConfigBuilderInterface::class => [
+        'class' => RouteConfigBuilder::class,
         'type' => App::DI_TYPE_SINGLETON,
     ],
     RouterInterface::class => [
