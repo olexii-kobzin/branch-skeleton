@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Nyholm\Psr7\Stream;
 
-return function (Router $router) {
+return function (Router $router): void {
     $router->get(['path' => ''], function (Request $request, Response $response, array $args) {
         return $response->withBody(Stream::create('Root path'));
     });
