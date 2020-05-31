@@ -1,5 +1,5 @@
 <?php
-use Branch\App;
+use Branch\Interfaces\Container\ContainerInterface;
 use Branch\Http\RequestFactory;
 use Branch\Http\ResponseFactory;
 use Branch\Interfaces\Middleware\MiddlewareHandlerInterface;
@@ -24,49 +24,49 @@ use Branch\Routing\RouteConfigBuilder;
 return [
     RequestFactoryInterface::class => [
         'class' => RequestFactory::class,
-        'type' => App::DI_TYPE_SINGLETON,
+        'singleton' => true,
         // 'args'=> [],
     ],
     ResponseFactoryInterface::class => [
         'class' => ResponseFactory::class,
-        'type' => App::DI_TYPE_SINGLETON,
+        'singleton' => true,
     ],
-    ServerRequestInterface::class => function (App $app) {
-        $factory = $app->get(RequestFactoryInterface::class);
+    ServerRequestInterface::class => function (ContainerInterface $container) {
+        $factory = $container->get(RequestFactoryInterface::class);
 
         return $factory->create();
     },
-    ResponseInterface::class => function (App $app) {
-        $factory = $app->get(ResponseFactoryInterface::class);
+    ResponseInterface::class => function (ContainerInterface $container) {
+        $factory = $container->get(ResponseFactoryInterface::class);
 
         return $factory->create();
     },
     RouteInvokerInterface::class => [
         'class' => RouteInvoker::class,
-        'type' => App::DI_TYPE_SINGLETON,
+        'singleton' => true,
     ],
     RouteConfigBuilderInterface::class => [
         'class' => RouteConfigBuilder::class,
-        'type' => App::DI_TYPE_SINGLETON,
+        'singleton' => true,
     ],
     RouterInterface::class => [
         'class' => Router::class,
-        'type' => App::DI_TYPE_SINGLETON,
+        'singleton' => true,
     ],
     MiddlewarePipeInterface::class => [
         'class' => MiddlewarePipe::class,
-        'type' => App::DI_TYPE_TRANSIENT,
+        'singleton' => false,
     ],
     MiddlewareHandlerInterface::class => [
         'class' => MiddlewareHandler::class,
-        'type' => App::DI_TYPE_TRANSIENT,
+        'singleton' => false,
     ],
     EmitterInterface::class => [
         'class' => SapiStreamEmitter::class,
-        'type' => App::DI_TYPE_TRANSIENT,
+        'singleton' => false,
     ],
     CallbackActionInterface::class => [
         'class' => CallbackAction::class,
-        'type' => App::DI_TYPE_TRANSIENT,
+        'singleton' => false,
     ],
 ];
