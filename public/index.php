@@ -14,7 +14,7 @@ $env = $env->get();
 // Fallback handler in case of middleware not able to catch an error
 set_exception_handler(new \App\Error\Handler($env));
 
-$config = require __DIR__ . '/../config/config.php';
+$settings = require __DIR__ . '/../config/settings.php';
 $di = require __DIR__ . '/../config/di.php';
 $middleware = require __DIR__ . '/../config/middleware.php';
 $routes = require __DIR__ . '/../routes/index.php';
@@ -22,7 +22,7 @@ $routes = require __DIR__ . '/../routes/index.php';
 $app = \Branch\App::getInstance();
 $app->init([
     'env' => $env,
-    'config' => $config,
+    'settings' => $settings,
     'di' => $di,
     'middleware' => $middleware,
     'routes' => $routes,

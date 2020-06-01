@@ -1,7 +1,10 @@
 <?php
+
+use Branch\Events\Repository;
 use Branch\Interfaces\Container\ContainerInterface;
 use Branch\Http\RequestFactory;
 use Branch\Http\ResponseFactory;
+use Branch\Interfaces\Events\RepositoryInterface;
 use Branch\Interfaces\Middleware\MiddlewareHandlerInterface;
 use Branch\Interfaces\Middleware\MiddlewarePipeInterface;
 use Branch\Interfaces\Http\RequestFactoryInterface;
@@ -22,6 +25,10 @@ use Branch\Interfaces\Routing\RouteConfigBuilderInterface;
 use Branch\Routing\RouteConfigBuilder;
 
 return [
+    RepositoryInterface::class => [
+        'class' => Repository::class,
+        'singleton' => true,
+    ],
     RequestFactoryInterface::class => [
         'class' => RequestFactory::class,
         'singleton' => true,
