@@ -1,10 +1,11 @@
 <?php
 
-use Branch\Events\Repository;
+use Branch\Events\EventDispatcher;
+use Branch\Events\ListenerProvider;
 use Branch\Interfaces\Container\ContainerInterface;
 use Branch\Http\RequestFactory;
 use Branch\Http\ResponseFactory;
-use Branch\Interfaces\Events\RepositoryInterface;
+use Branch\Interfaces\Events\ListenerProviderInterface;
 use Branch\Interfaces\Middleware\MiddlewareHandlerInterface;
 use Branch\Interfaces\Middleware\MiddlewarePipeInterface;
 use Branch\Interfaces\Http\RequestFactoryInterface;
@@ -23,12 +24,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Branch\Interfaces\Routing\RouteConfigBuilderInterface;
 use Branch\Routing\RouteConfigBuilder;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 return [
-    RepositoryInterface::class => [
-        'class' => Repository::class,
-        'singleton' => true,
-    ],
     RequestFactoryInterface::class => [
         'class' => RequestFactory::class,
         'singleton' => true,
@@ -75,5 +73,16 @@ return [
     CallbackActionInterface::class => [
         'class' => CallbackAction::class,
         'singleton' => false,
+    ],
+    ListenerProviderInterface::class => [
+        'class' => ListenerProvider::class,
+        'singleton' => true,
+    ],
+    EventDispatcherInterface::class => [
+        'class' => EventDispatcher::class,
+        'singleton' => true,
+        'args' => [
+            'provider' => ListenerProvider::class,
+        ],
     ],
 ];
