@@ -1,8 +1,8 @@
 <?php
 
+use Branch\App;
 use Branch\Events\EventDispatcher;
 use Branch\Events\ListenerProvider;
-use Branch\Interfaces\Container\ContainerInterface;
 use Branch\Http\RequestFactory;
 use Branch\Http\ResponseFactory;
 use Branch\Interfaces\Events\ListenerProviderInterface;
@@ -36,13 +36,13 @@ return [
         'class' => ResponseFactory::class,
         'singleton' => true,
     ],
-    ServerRequestInterface::class => function (ContainerInterface $container) {
-        $factory = $container->get(RequestFactoryInterface::class);
+    ServerRequestInterface::class => function (App $app) {
+        $factory = $app->get(RequestFactoryInterface::class);
 
         return $factory->create();
     },
-    ResponseInterface::class => function (ContainerInterface $container) {
-        $factory = $container->get(ResponseFactoryInterface::class);
+    ResponseInterface::class => function (App $app) {
+        $factory = $app->get(ResponseFactoryInterface::class);
 
         return $factory->create();
     },
