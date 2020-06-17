@@ -5,7 +5,7 @@
     "description": "Branch framework skeleton",
     "keywords": ["branch-framework", "branch-skeleton"],
     "homepage": "https://github.com/tasmanangel/branch-skeleton",
-    "license": "GPLv3",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Alex Kobzin",
