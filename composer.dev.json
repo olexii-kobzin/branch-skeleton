@@ -14,9 +14,18 @@
             "role": "Creator"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./branch-framework",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": ">=7.4.3",
-        "tasmanangel/branch-framework": "^0.0.2"
+        "tasmanangel/branch-framework": "^0.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0"

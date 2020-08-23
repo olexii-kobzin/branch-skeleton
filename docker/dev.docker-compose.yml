@@ -1,0 +1,49 @@
+version: '3'
+# Place in the directory parent to app and framework itself
+services:
+
+  #PHP Service
+  branch:
+    build:
+      context: .
+      dockerfile: ./app/docker/branchdev.Dockerfile
+    image: branch-dev
+    container_name: branch-dev
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: branch-dev
+      XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    working_dir: /var/www
+    networks:
+      - branch-network-dev
+    volumes:
+       - ./app:/var/www
+       - ./framework:/var/www/branch-framework
+       - ./app/docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: branch-server-dev
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - branch-network-dev
+    volumes:
+      - ./app:/var/www
+      - ./framework:/var/www/branch-framework
+      - ./app/docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+#Docker Networks
+networks:
+  branch-network-dev:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.221.0/28
