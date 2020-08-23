@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  #PHP Service
+  branch:
+    build:
+      context: .
+      dockerfile: ./docker/branch.Dockerfile
+    image: branch
+    container_name: branch
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: branch
+    working_dir: /var/www
+    networks:
+      - branch-network
+    volumes:
+       - ./:/var/www
+       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: branch-server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - branch-network
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+#Docker Networks
+networks:
+  branch-network:
+    driver: bridge

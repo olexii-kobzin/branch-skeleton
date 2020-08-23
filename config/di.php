@@ -28,13 +28,36 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 return [
     RequestFactoryInterface::class => [
-        'class' => RequestFactory::class,
+        'definition' => RequestFactory::class,
         'singleton' => true,
         // 'args'=> [],
     ],
     ResponseFactoryInterface::class => [
-        'class' => ResponseFactory::class,
+        'definition' => ResponseFactory::class,
         'singleton' => true,
+    ],
+    RouteInvokerInterface::class => [
+        'definition' => RouteInvoker::class,
+        'singleton' => true,
+    ],
+    RouteConfigBuilderInterface::class => [
+        'definition' => RouteConfigBuilder::class,
+        'singleton' => true,
+    ],
+    RouterInterface::class => [
+        'definition' => Router::class,
+        'singleton' => true,
+    ],
+    ListenerProviderInterface::class => [
+        'definition' => ListenerProvider::class,
+        'singleton' => true,
+    ],
+    EventDispatcherInterface::class => [
+        'definition' => EventDispatcher::class,
+        'singleton' => true,
+        'args' => [
+            'provider' => ListenerProvider::class,
+        ],
     ],
     ServerRequestInterface::class => function (App $app) {
         $factory = $app->get(RequestFactoryInterface::class);
@@ -46,43 +69,8 @@ return [
 
         return $factory->create();
     },
-    RouteInvokerInterface::class => [
-        'class' => RouteInvoker::class,
-        'singleton' => true,
-    ],
-    RouteConfigBuilderInterface::class => [
-        'class' => RouteConfigBuilder::class,
-        'singleton' => true,
-    ],
-    RouterInterface::class => [
-        'class' => Router::class,
-        'singleton' => true,
-    ],
-    MiddlewarePipeInterface::class => [
-        'class' => MiddlewarePipe::class,
-        'singleton' => false,
-    ],
-    MiddlewareHandlerInterface::class => [
-        'class' => MiddlewareHandler::class,
-        'singleton' => false,
-    ],
-    EmitterInterface::class => [
-        'class' => SapiStreamEmitter::class,
-        'singleton' => false,
-    ],
-    CallbackActionInterface::class => [
-        'class' => CallbackAction::class,
-        'singleton' => false,
-    ],
-    ListenerProviderInterface::class => [
-        'class' => ListenerProvider::class,
-        'singleton' => true,
-    ],
-    EventDispatcherInterface::class => [
-        'class' => EventDispatcher::class,
-        'singleton' => true,
-        'args' => [
-            'provider' => ListenerProvider::class,
-        ],
-    ],
+    MiddlewarePipeInterface::class => MiddlewarePipe::class,
+    MiddlewareHandlerInterface::class => MiddlewareHandler::class,
+    EmitterInterface::class => SapiStreamEmitter::class,
+    CallbackActionInterface::class => CallbackAction::class,
 ];

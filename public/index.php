@@ -1,32 +1,15 @@
 <?php
 declare(strict_types=1);
 
-use Branch\Env;
-
 define('BRANCH_FRAMEWORK_START', microtime(true));
 define('DS', DIRECTORY_SEPARATOR);
 
 require __DIR__.'/../vendor/autoload.php';
 
-$env = new Env(realpath(__DIR__ . '/../.env'));
-$env = $env->get();
-
-// Fallback handler in case of middleware not able to catch an error
-set_exception_handler(new \App\Error\Handler($env));
-
-$settings = require __DIR__ . '/../config/settings.php';
-$di = require __DIR__ . '/../config/di.php';
-$middleware = require __DIR__ . '/../config/middleware.php';
-$routes = require __DIR__ . '/../routes/index.php';
+$basePath = realpath(__DIR__ . '/../');
 
 $app = \Branch\App::getInstance();
-$app->init([
-    'env' => $env,
-    'settings' => $settings,
-    'di' => $di,
-    'middleware' => $middleware,
-    'routes' => $routes,
-]);
+$app->init($basePath);
 
 // var_dump(get_included_files());
 // var_dump(memory_get_usage());
